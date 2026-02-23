@@ -161,6 +161,19 @@ html, body {
 .feat-title { font-size: 18px; font-weight: 700; margin-bottom: 2px; }
 .feat-body { font-size: 14px; color: var(--text2); line-height: 1.55; }
 .welcome-btns { margin-top: auto; padding-top: 28px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+.swipe-hint {
+  margin-top: auto; padding-top: 24px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; color: var(--text3);
+  font-size: 14px; font-weight: 600;
+}
+.swipe-arrow {
+  animation: nudgeRight 1.5s ease-in-out infinite;
+}
+@keyframes nudgeRight {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(8px); }
+}
 .or-text { font-size: 14px; color: var(--text3); }
 
 /* ── SLIDE 2: SERVICES GRID ── */
@@ -280,7 +293,12 @@ html, body {
             </div>
           </div>
         </div>
-        <!-- Buttons moved to last screen -->
+        <div class="swipe-hint anim anim-fade-up" style="animation-delay:1s">
+          <div class="swipe-arrow">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <span>Swipe to continue</span>
+        </div>
       </div>
 
       <!-- 2: SERVICES -->
@@ -450,6 +468,10 @@ function goTo(i) {
 
   // Dots
   dotsContainer.querySelectorAll('.dot').forEach((d, idx) => d.classList.toggle('active', idx === cur));
+
+  // Hide swipe hint after first screen
+  const hint = document.querySelector('.swipe-hint');
+  if (hint && cur > 0) hint.style.display = 'none';
 
   // Always show bottom nav, hide Continue on last slide
   bottomNav.style.display = 'flex';

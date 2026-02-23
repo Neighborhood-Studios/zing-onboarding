@@ -2,528 +2,490 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
-<meta name="theme-color" content="#111211">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#F5F0E8">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Zing — Onboarding</title>
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Zing</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #FAFAF7;
-  --bg-warm: #F2EFEA;
-  --dark: #111211;
-  --text: #1A1F1C;
-  --text-muted: #6B7370;
-  --gold: #C8956C;
-  --green: #2C5F4B;
-  --white: #FFFFFF;
+  --bg: #F5F0E8;
+  --card: #FFFFFF;
+  --green: #2D6B5A;
+  --green-mid: #3A7D68;
+  --yellow: #FFD700;
+  --yellow-dim: rgba(255,215,0,.35);
+  --text: #1A1A1A;
+  --text2: #555;
+  --text3: #AAA;
+  --border: #D9D3C7;
+  --pill: 9999px;
+  --card-r: 18px;
 }
 
 html, body {
   height: 100%; overflow: hidden;
-  font-family: 'DM Sans', -apple-system, sans-serif;
-  background: var(--dark);
-  color: var(--text);
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg); color: var(--text);
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
 }
 
-.onboarding {
-  height: 100%; width: 100%;
-  display: flex; flex-direction: column;
-  padding-top: env(safe-area-inset-top, 0);
-  padding-bottom: env(safe-area-inset-bottom, 0);
-}
-
-/* ── SLIDES ── */
-.slides-container {
-  flex: 1; position: relative; overflow: hidden;
-}
+/* ── APP SHELL ── */
+.app { height: 100%; display: flex; flex-direction: column; }
+.slides-viewport { flex: 1; overflow: hidden; position: relative; }
 .slides-track {
   display: flex; height: 100%;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform .55s cubic-bezier(.4,0,.15,1);
+  will-change: transform;
 }
 .slide {
   min-width: 100%; height: 100%;
   display: flex; flex-direction: column;
-  padding: 48px 28px 24px;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  padding: 0 24px;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding-top: calc(20px + env(safe-area-inset-top, 0));
+  padding-bottom: 16px;
 }
 
-/* ── COMMON ── */
-.slide-label {
-  display: inline-block;
-  background: var(--green); color: var(--white);
-  font-size: 13px; font-weight: 600;
-  padding: 8px 20px; border-radius: 6px;
-  margin-bottom: 20px; width: fit-content;
+/* ── BADGE ── */
+.badge {
+  display: inline-flex; align-items: center;
+  background: var(--green); color: #fff;
+  font-size: 14px; font-weight: 700;
+  padding: 10px 22px; border-radius: 14px;
+  width: fit-content; margin-bottom: 16px;
 }
-.slide-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 28px; font-weight: 400; line-height: 1.2;
-  color: var(--text); margin-bottom: 10px;
+
+/* ── HEADINGS ── */
+.h1 { font-size: 26px; font-weight: 800; line-height: 1.25; color: var(--text); margin-bottom: 8px; }
+.h2 { font-size: 20px; font-weight: 700; line-height: 1.3; color: var(--text); }
+.body { font-size: 15px; color: var(--text2); line-height: 1.6; }
+
+/* ── BUTTONS ── */
+.btn-yellow {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: 54px; border-radius: var(--pill);
+  background: var(--yellow); color: var(--text);
+  font-family: inherit; font-size: 17px; font-weight: 700;
+  border: none; cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+  -webkit-appearance: none;
 }
-.slide-desc {
-  font-size: 15px; color: var(--text-muted); line-height: 1.65;
+.btn-yellow:active { transform: scale(.97); }
+.btn-yellow-outline {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: 54px; border-radius: var(--pill);
+  background: transparent; color: var(--green);
+  font-family: inherit; font-size: 17px; font-weight: 700;
+  border: 2.5px solid var(--yellow); cursor: pointer;
+  transition: transform .15s;
 }
-.slide-title-light { color: var(--white); }
+.btn-yellow-outline:active { transform: scale(.97); }
+.btn-disabled {
+  background: var(--yellow-dim); color: var(--text3);
+  pointer-events: none;
+}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav {
+  padding: 12px 24px;
+  padding-bottom: calc(16px + env(safe-area-inset-bottom, 0));
+  background: var(--bg);
+  display: flex; flex-direction: column; gap: 10px;
+}
+.nav-row { display: flex; align-items: center; justify-content: space-between; }
+.dots { display: flex; gap: 6px; align-items: center; }
+.dot {
+  height: 6px; border-radius: 3px;
+  background: var(--border); transition: all .4s;
+  width: 6px;
+}
+.dot.active { width: 22px; background: var(--green); }
+.btn-continue {
+  background: var(--yellow); color: var(--text);
+  border: none; border-radius: var(--pill);
+  padding: 14px 28px; font-family: inherit;
+  font-size: 16px; font-weight: 700;
+  cursor: pointer; transition: transform .15s;
+}
+.btn-continue:active { transform: scale(.97); }
+.skip-btn {
+  background: none; border: none; color: var(--text3);
+  font-family: inherit; font-size: 14px; font-weight: 600;
+  cursor: pointer; padding: 8px 0;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.anim { opacity: 0; }
+.slide.active .anim { animation-fill-mode: both; }
+.slide.active .anim-fade-up { animation: fadeUp .6s ease both; }
+.slide.active .anim-fade-in { animation: fadeIn .5s ease both; }
+.slide.active .anim-scale { animation: scaleIn .5s ease both; }
+.slide.active .anim-slide { animation: slideInLeft .5s ease both; }
 
 /* ── SLIDE 1: WELCOME ── */
-.slide-welcome {
-  background: var(--dark);
-  justify-content: flex-start;
-  padding-top: 72px;
-  text-align: center;
-}
-.slide-welcome .logo {
-  width: 110px; height: auto; margin: 0 auto 10px;
-}
-.slide-welcome .tagline {
-  color: var(--gold);
-  font-size: 13px; font-weight: 500;
-  letter-spacing: 0.25em; text-transform: uppercase;
-  margin-bottom: 44px;
-}
-.welcome-features {
-  display: flex; flex-direction: column;
-  gap: 24px; text-align: left;
-  max-width: 340px; margin: 0 auto;
-}
-.welcome-feature { display: flex; gap: 14px; }
-.feat-icon {
-  flex-shrink: 0; width: 42px; height: 42px;
-  border-radius: 50%; background: rgba(200,149,108,.12);
+.s-welcome { justify-content: flex-start; padding-top: calc(48px + env(safe-area-inset-top, 0)); text-align: center; }
+.logo-area { margin-bottom: 8px; }
+.logo-area img { width: 120px; height: auto; }
+.tagline { font-size: 15px; font-weight: 700; color: var(--green); margin-bottom: 36px; }
+.features { display: flex; flex-direction: column; gap: 24px; text-align: left; }
+.feature { display: flex; gap: 14px; }
+.feat-circle {
+  flex-shrink: 0; width: 38px; height: 38px;
+  border-radius: 50%; background: var(--green-mid);
   display: flex; align-items: center; justify-content: center;
 }
-.feat-icon svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
-.feat-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px; font-weight: 400; color: var(--white);
-  margin-bottom: 4px;
-}
-.feat-desc { font-size: 13.5px; color: rgba(255,255,255,.45); line-height: 1.55; }
+.feat-circle svg { width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 2; }
+.feat-title { font-size: 18px; font-weight: 700; margin-bottom: 2px; }
+.feat-body { font-size: 14px; color: var(--text2); line-height: 1.55; }
+.welcome-btns { margin-top: auto; padding-top: 28px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+.or-text { font-size: 14px; color: var(--text3); }
 
 /* ── SLIDE 2: SERVICES GRID ── */
-.slide-services {
-  background: var(--bg);
-  justify-content: flex-start;
-  padding-top: 56px;
-}
+.s-services { padding-top: calc(40px + env(safe-area-inset-top, 0)); }
 .services-grid {
   display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 12px; margin-top: 28px;
+  gap: 10px; margin-top: 20px;
 }
 .task-card {
-  background: var(--white);
-  border: 1px solid rgba(0,0,0,.06);
-  border-radius: 16px;
-  padding: 16px 8px 14px;
+  background: var(--card);
+  border: 1.5px solid rgba(0,0,0,.04);
+  border-radius: 16px; padding: 14px 6px 12px;
   text-align: center;
-  transition: transform .2s, box-shadow .2s;
+  transition: transform .2s, border-color .2s;
 }
-.task-card:active { transform: scale(0.96); }
-.task-emoji { font-size: 32px; margin-bottom: 8px; }
-.task-name { font-size: 11.5px; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 4px; }
-.task-price { font-size: 13px; font-weight: 700; color: var(--green); }
-.services-note {
-  text-align: center; font-size: 13px;
-  color: var(--text-muted); margin-top: 20px;
-}
+.task-card:active { transform: scale(.95); border-color: var(--green); }
+.task-emoji { font-size: 30px; margin-bottom: 6px; }
+.task-name { font-size: 11px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
+.task-price { font-size: 15px; font-weight: 800; color: var(--green); }
+.grid-note { text-align: center; font-size: 13px; color: var(--text3); margin-top: 14px; font-weight: 600; }
 
 /* ── SLIDE 3: HOW IT WORKS ── */
-.slide-how { background: var(--bg-warm); }
-.steps { display: flex; flex-direction: column; gap: 28px; margin-top: 8px; }
+.s-how { padding-top: calc(48px + env(safe-area-inset-top, 0)); }
+.steps { display: flex; flex-direction: column; gap: 28px; margin-top: 20px; }
 .step { display: flex; gap: 14px; }
 .step-num {
   flex-shrink: 0; width: 36px; height: 36px;
-  border-radius: 50%; background: var(--green);
-  color: var(--white); font-size: 14px; font-weight: 600;
+  border-radius: 50%; background: var(--green-mid);
+  color: #fff; font-size: 15px; font-weight: 800;
   display: flex; align-items: center; justify-content: center;
 }
-.step-title { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-.step-desc { font-size: 14px; color: var(--text-muted); line-height: 1.55; }
+.step-title { font-size: 18px; font-weight: 700; margin-bottom: 3px; }
+.step-body { font-size: 14px; color: var(--text2); line-height: 1.55; }
+.step-note { font-size: 14px; color: var(--text2); margin-top: 24px; line-height: 1.5; }
 
 /* ── SLIDE 4: DEDICATED ── */
-.slide-dedicated {
-  background: var(--bg);
-  justify-content: flex-start;
-  padding-top: 56px;
+.s-dedicated { padding-top: calc(40px + env(safe-area-inset-top, 0)); }
+.dedicated-img {
+  width: 100%; max-width: 340px; margin: 20px auto 0;
+  border-radius: 20px; overflow: hidden;
 }
-.dedicated-image {
-  width: 100%; max-width: 320px; margin: 24px auto 0;
-  border-radius: 16px; overflow: hidden;
-}
-.dedicated-image img {
-  width: 100%; height: 280px; object-fit: cover;
-  display: block;
-}
+.dedicated-img img { width: 100%; height: 240px; object-fit: cover; display: block; }
 .dedicated-caption {
   text-align: center; margin-top: 20px;
-  font-family: 'Playfair Display', serif;
-  font-size: 18px; font-weight: 400;
-  color: var(--text);
+  font-size: 18px; font-weight: 700; color: var(--text);
 }
 
-/* ── SLIDE 5: BATHROOMS ── */
-.slide-question {
-  background: var(--bg-warm);
-  justify-content: flex-start;
-  padding-top: 56px;
-}
+/* ── SLIDE 5: QUESTION ── */
+.s-question { padding-top: calc(48px + env(safe-area-inset-top, 0)); }
 .options-grid {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: 12px; margin-top: 24px;
+  gap: 12px; margin-top: 20px;
 }
 .option-btn {
-  background: var(--white);
-  border: 2px solid rgba(0,0,0,.06);
-  border-radius: 14px;
-  padding: 18px; text-align: center;
-  font-family: inherit; font-size: 16px; font-weight: 500;
-  color: var(--text); cursor: pointer;
-  transition: all .2s;
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: var(--card-r); padding: 18px;
+  text-align: center; font-family: inherit;
+  font-size: 16px; font-weight: 600; color: var(--text);
+  cursor: pointer; transition: all .2s;
 }
 .option-btn:active, .option-btn.selected {
-  border-color: var(--green);
-  background: rgba(44,95,75,.06);
+  border-color: var(--green); background: rgba(45,107,90,.06);
 }
-.option-btn:last-child:nth-child(odd) {
-  grid-column: 1;
-}
-.question-helper {
-  text-align: center; font-size: 13px;
-  color: var(--text-muted); margin-top: 16px;
-}
+.question-note { text-align: center; font-size: 13px; color: var(--text3); margin-top: 14px; font-weight: 500; }
 
-/* ── SLIDE 6: AUTH ── */
-.slide-auth {
-  background: var(--dark);
-  text-align: center;
-  justify-content: center;
+/* ── SLIDE 6: GET STARTED ── */
+.s-auth {
+  justify-content: center; text-align: center;
+  padding-top: calc(80px + env(safe-area-inset-top, 0));
 }
-.slide-auth .logo { width: 100px; height: auto; margin: 0 auto 28px; }
-.slide-auth .slide-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 30px; font-weight: 400; line-height: 1.2;
-  color: var(--white); margin-bottom: 12px;
-}
-.slide-auth .slide-desc {
-  font-size: 15px; color: rgba(255,255,255,.45); line-height: 1.6;
-  max-width: 300px; margin: 0 auto 36px;
-}
-.auth-buttons {
-  display: flex; flex-direction: column;
-  gap: 12px; max-width: 320px; margin: 0 auto; width: 100%;
-}
-.btn-auth {
-  display: block; width: 100%; padding: 16px;
-  border-radius: 50px; font-family: inherit;
-  font-size: 16px; font-weight: 600;
-  text-align: center; cursor: pointer;
-  text-decoration: none; transition: all .25s; border: none;
-}
-.btn-auth-primary { background: var(--white); color: var(--text); }
-.btn-auth-primary:hover { background: var(--gold); color: var(--white); }
-.btn-auth-secondary {
-  background: transparent; color: rgba(255,255,255,.5);
-  border: 1.5px solid rgba(255,255,255,.15);
-}
-.btn-auth-secondary:hover { border-color: rgba(255,255,255,.4); color: var(--white); }
-.auth-divider {
-  display: flex; align-items: center; gap: 16px;
-  color: rgba(255,255,255,.2); font-size: 13px;
-}
-.auth-divider::before, .auth-divider::after {
-  content: ''; flex: 1; height: 1px; background: rgba(255,255,255,.08);
-}
-
-/* ── BOTTOM BAR ── */
-.bottom-bar {
-  padding: 16px 28px;
-  padding-bottom: calc(16px + env(safe-area-inset-bottom, 0));
-  display: flex; align-items: center; justify-content: space-between;
-  transition: background .4s;
-}
-.bb-dark { background: var(--dark); }
-.bb-light { background: var(--bg); }
-.bb-warm { background: var(--bg-warm); }
-
-.dots { display: flex; gap: 6px; }
-.dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  transition: all .35s; cursor: pointer;
-}
-.bb-dark .dot { background: rgba(255,255,255,.15); }
-.bb-dark .dot.active { width: 24px; border-radius: 4px; background: var(--gold); }
-.bb-light .dot, .bb-warm .dot { background: rgba(0,0,0,.1); }
-.bb-light .dot.active, .bb-warm .dot.active { width: 24px; border-radius: 4px; background: var(--gold); }
-
-.btn-next {
-  background: var(--gold); color: var(--white);
-  border: none; border-radius: 50px;
-  padding: 14px 24px;
-  font-family: inherit; font-size: 15px; font-weight: 600;
-  cursor: pointer; transition: all .25s;
-  display: flex; align-items: center; gap: 6px;
-}
-.btn-next:active { transform: scale(0.97); }
-.btn-next svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
-
-.btn-skip {
-  background: none; border: none;
-  font-family: inherit; font-size: 13px;
-  cursor: pointer; padding: 8px 0;
-  transition: color .25s;
-}
-.bb-dark .btn-skip { color: rgba(255,255,255,.3); }
-.bb-light .btn-skip, .bb-warm .btn-skip { color: var(--text-muted); }
+.s-auth .logo-area { margin-bottom: 24px; }
+.s-auth .h1 { margin-bottom: 10px; }
+.s-auth .body { max-width: 300px; margin: 0 auto 36px; }
+.auth-btns { display: flex; flex-direction: column; gap: 10px; align-items: center; }
 </style>
 </head>
 <body>
 
-<div class="onboarding">
-  <div class="slides-container" id="slidesContainer">
-    <div class="slides-track" id="slidesTrack">
+<div class="app">
+  <div class="slides-viewport" id="viewport">
+    <div class="slides-track" id="track">
 
-      <!-- SLIDE 1: Welcome -->
-      <div class="slide slide-welcome">
-        <img src="assets/zing-logo.svg" alt="Zing" class="logo">
-        <p class="tagline">À la carte chores, handled</p>
-        <div class="welcome-features">
-          <div class="welcome-feature">
-            <div class="feat-icon">
+      <!-- 1: WELCOME -->
+      <div class="slide s-welcome active" data-bg="var(--bg)">
+        <div class="logo-area anim anim-scale" style="animation-delay:.1s">
+          <img src="assets/zing-logo.svg" alt="Zing" style="filter:brightness(0) saturate(100%) invert(33%) sepia(15%) saturate(1800%) hue-rotate(115deg) brightness(95%);">
+        </div>
+        <p class="tagline anim anim-fade-up" style="animation-delay:.25s">À La Carte Chores, handled.</p>
+        <div class="features">
+          <div class="feature anim anim-slide" style="animation-delay:.35s">
+            <div class="feat-circle">
               <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
             </div>
             <div>
               <div class="feat-title">No task too small</div>
-              <div class="feat-desc">Choose from small cleaning tasks & chores around your home. With no minimums, we can help for as little as $3.</div>
+              <div class="feat-body">Choose from small cleaning tasks & chores around your home. With no minimums, we can come to your home for as little as $3.</div>
             </div>
           </div>
-          <div class="welcome-feature">
-            <div class="feat-icon">
+          <div class="feature anim anim-slide" style="animation-delay:.5s">
+            <div class="feat-circle">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
             <div>
               <div class="feat-title">Fast & On-Demand</div>
-              <div class="feat-desc">We're stationed in your building all day. A team member can be at your door in 30 minutes.</div>
+              <div class="feat-body">We're stationed in your building all day to make booking fast and hassle-free. A team member can be at your door in as little as 30 minutes.</div>
             </div>
           </div>
-          <div class="welcome-feature">
-            <div class="feat-icon">
+          <div class="feature anim anim-slide" style="animation-delay:.65s">
+            <div class="feat-circle">
               <svg viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/></svg>
             </div>
             <div>
               <div class="feat-title">Dedicated to your building</div>
-              <div class="feat-desc">Same cleaner, every time. We're just a message away.</div>
+              <div class="feat-body">Zing is your go-to cleaner for any tasks or requests you have. Same cleaner, every time. We're just a message away!</div>
             </div>
           </div>
         </div>
+        <div class="welcome-btns anim anim-fade-up" style="animation-delay:.85s">
+          <button class="btn-yellow">Login</button>
+          <span class="or-text">or</span>
+          <button class="btn-yellow-outline">Create Account</button>
+        </div>
       </div>
 
-      <!-- SLIDE 2: Services Grid -->
-      <div class="slide slide-services">
-        <span class="slide-label">Our Services</span>
-        <h2 class="slide-title">Pick only what<br>you need</h2>
-        <p class="slide-desc">No packages, no subscriptions. Just individual tasks at transparent prices.</p>
+      <!-- 2: SERVICES -->
+      <div class="slide s-services" data-bg="var(--bg)">
+        <div class="badge anim anim-fade-up" style="animation-delay:.1s">Our Services</div>
+        <h1 class="h1 anim anim-fade-up" style="animation-delay:.2s">Pick only what<br>you need</h1>
+        <p class="body anim anim-fade-up" style="animation-delay:.3s">No packages or subscriptions. Just individual tasks at transparent prices.</p>
         <div class="services-grid">
-          <div class="task-card">
+          <div class="task-card anim anim-scale" style="animation-delay:.35s">
             <div class="task-emoji">🛁</div>
-            <div class="task-name">Bathroom Clean</div>
+            <div class="task-name">Bathroom</div>
             <div class="task-price">$23</div>
           </div>
-          <div class="task-card">
+          <div class="task-card anim anim-scale" style="animation-delay:.4s">
             <div class="task-emoji">🧹</div>
-            <div class="task-name">Floors Mopped</div>
+            <div class="task-name">Floors</div>
             <div class="task-price">$14</div>
           </div>
-          <div class="task-card">
+          <div class="task-card anim anim-scale" style="animation-delay:.45s">
             <div class="task-emoji">👕</div>
-            <div class="task-name">Clothes Folded</div>
+            <div class="task-name">Folding</div>
             <div class="task-price">$12</div>
           </div>
-          <div class="task-card">
+          <div class="task-card anim anim-scale" style="animation-delay:.5s">
             <div class="task-emoji">🍽️</div>
-            <div class="task-name">Dish Washing</div>
+            <div class="task-name">Dishes</div>
             <div class="task-price">$10</div>
           </div>
-          <div class="task-card">
+          <div class="task-card anim anim-scale" style="animation-delay:.55s">
             <div class="task-emoji">🛏️</div>
             <div class="task-name">Bed Making</div>
             <div class="task-price">$10</div>
           </div>
-          <div class="task-card">
+          <div class="task-card anim anim-scale" style="animation-delay:.6s">
             <div class="task-emoji">🗑️</div>
             <div class="task-name">Trash Run</div>
             <div class="task-price">$8</div>
           </div>
-          <div class="task-card">
+          <div class="task-card anim anim-scale" style="animation-delay:.65s">
             <div class="task-emoji">🪟</div>
             <div class="task-name">Windows</div>
             <div class="task-price">$20</div>
           </div>
-          <div class="task-card">
+          <div class="task-card anim anim-scale" style="animation-delay:.7s">
             <div class="task-emoji">🌿</div>
-            <div class="task-name">Water Plants</div>
+            <div class="task-name">Plants</div>
             <div class="task-price">$6</div>
           </div>
-          <div class="task-card">
+          <div class="task-card anim anim-scale" style="animation-delay:.75s">
             <div class="task-emoji">✨</div>
             <div class="task-name">Quick Tidy</div>
             <div class="task-price">$16</div>
           </div>
         </div>
-        <p class="services-note">17 tasks and counting — new services added regularly</p>
+        <p class="grid-note anim anim-fade-in" style="animation-delay:.9s">17 tasks and counting</p>
       </div>
 
-      <!-- SLIDE 3: How It Works -->
-      <div class="slide slide-how">
-        <span class="slide-label">How It Works</span>
-        <h2 class="slide-title">Let us do the<br>hard work</h2>
+      <!-- 3: HOW IT WORKS -->
+      <div class="slide s-how" data-bg="var(--bg)">
+        <div class="badge anim anim-fade-up" style="animation-delay:.1s">How it works</div>
+        <h1 class="h1 anim anim-fade-up" style="animation-delay:.2s">Let us do the hard work</h1>
         <div class="steps">
-          <div class="step">
+          <div class="step anim anim-slide" style="animation-delay:.35s">
             <div class="step-num">1</div>
             <div>
               <div class="step-title">Pick your tasks</div>
-              <div class="step-desc">Choose what you need — just tap, add details, and add to your cart.</div>
+              <div class="step-body">Choose what you need - just tap, add any details needed and add to your cart.</div>
             </div>
           </div>
-          <div class="step">
+          <div class="step anim anim-slide" style="animation-delay:.5s">
             <div class="step-num">2</div>
             <div>
               <div class="step-title">Schedule & Entry</div>
-              <div class="step-desc">Select a date and let us know how we should access your place.</div>
+              <div class="step-body">Select a date and let us know how we should access your place.</div>
             </div>
           </div>
-          <div class="step">
+          <div class="step anim anim-slide" style="animation-delay:.65s">
             <div class="step-num">3</div>
             <div>
               <div class="step-title">Pay & Confirm</div>
-              <div class="step-desc">Choose paying by card or Apple Pay and you're done! We'll text to confirm all the details.</div>
+              <div class="step-body">Choose paying by card or Apple Pay and you're done!</div>
             </div>
           </div>
         </div>
+        <p class="step-note anim anim-fade-up" style="animation-delay:.8s">We'll text to confirm all the details.</p>
       </div>
 
-      <!-- SLIDE 4: Dedicated -->
-      <div class="slide slide-dedicated">
-        <span class="slide-label">Welcome</span>
-        <h2 class="slide-title">Dedicated to<br>your building</h2>
-        <p class="slide-desc">A dedicated Zing cleaner will be in your building taking care of any chores or last-minute cleaning tasks you may have. We can't wait to help!</p>
-        <div class="dedicated-image">
+      <!-- 4: DEDICATED -->
+      <div class="slide s-dedicated" data-bg="var(--bg)">
+        <div class="badge anim anim-fade-up" style="animation-delay:.1s">Welcome</div>
+        <h1 class="h1 anim anim-fade-up" style="animation-delay:.2s">Dedicated to your building</h1>
+        <p class="body anim anim-fade-up" style="animation-delay:.3s">A dedicated Zing cleaner will be in your building taking care of any chores or last-minute cleaning tasks you may have. We can't wait to help with whatever you need!</p>
+        <div class="dedicated-img anim anim-scale" style="animation-delay:.45s">
           <img src="assets/cleaner-hero.jpg" alt="Your Zing cleaner">
         </div>
-        <p class="dedicated-caption">You'll spot our cart around...</p>
+        <p class="dedicated-caption anim anim-fade-up" style="animation-delay:.65s">You'll spot our cart around... 🧹</p>
       </div>
 
-      <!-- SLIDE 5: Bathrooms Question -->
-      <div class="slide slide-question">
-        <span class="slide-label">One quick question</span>
-        <h2 class="slide-title">How many bathrooms does your place have?</h2>
-        <p class="slide-desc">This helps us give you accurate pricing for cleaning services.</p>
+      <!-- 5: QUESTION -->
+      <div class="slide s-question" data-bg="var(--bg)">
+        <div class="badge anim anim-fade-up" style="animation-delay:.1s">One quick question</div>
+        <h1 class="h1 anim anim-fade-up" style="animation-delay:.2s">How many bathrooms does your place have?</h1>
+        <p class="body anim anim-fade-up" style="animation-delay:.3s">This helps us give you accurate pricing for cleaning services.</p>
         <div class="options-grid">
-          <button class="option-btn" onclick="selectOption(this)">1 Bathroom</button>
-          <button class="option-btn" onclick="selectOption(this)">1.5 Bathrooms</button>
-          <button class="option-btn" onclick="selectOption(this)">2 Bathrooms</button>
-          <button class="option-btn" onclick="selectOption(this)">3 Bathrooms</button>
-          <button class="option-btn" onclick="selectOption(this)">4 Bathrooms</button>
+          <button class="option-btn anim anim-scale" style="animation-delay:.4s" onclick="pick(this)">1 Bathroom</button>
+          <button class="option-btn anim anim-scale" style="animation-delay:.45s" onclick="pick(this)">1.5 Bathrooms</button>
+          <button class="option-btn anim anim-scale" style="animation-delay:.5s" onclick="pick(this)">2 Bathrooms</button>
+          <button class="option-btn anim anim-scale" style="animation-delay:.55s" onclick="pick(this)">3 Bathrooms</button>
+          <button class="option-btn anim anim-scale" style="animation-delay:.6s" onclick="pick(this)">4 Bathrooms</button>
         </div>
-        <p class="question-helper">Please select the number of bathrooms</p>
+        <p class="question-note anim anim-fade-in" style="animation-delay:.7s">Please select the number of bathrooms</p>
       </div>
 
-      <!-- SLIDE 6: Auth -->
-      <div class="slide slide-auth">
-        <img src="assets/zing-logo.svg" alt="Zing" class="logo">
-        <h2 class="slide-title slide-title-light">Ready for a<br>cleaner home?</h2>
-        <p class="slide-desc" style="color:rgba(255,255,255,.45); max-width:300px; margin:0 auto 36px;">Create your account and book your first task in under a minute.</p>
-        <div class="auth-buttons">
-          <button class="btn-auth btn-auth-primary">Create Account</button>
-          <div class="auth-divider">or</div>
-          <button class="btn-auth btn-auth-secondary">Login</button>
+      <!-- 6: AUTH -->
+      <div class="slide s-auth" data-bg="var(--bg)">
+        <div class="logo-area anim anim-scale" style="animation-delay:.1s">
+          <img src="assets/zing-logo.svg" alt="Zing" style="filter:brightness(0) saturate(100%) invert(33%) sepia(15%) saturate(1800%) hue-rotate(115deg) brightness(95%);">
+        </div>
+        <h1 class="h1 anim anim-fade-up" style="animation-delay:.25s">Ready for a<br>cleaner home?</h1>
+        <p class="body anim anim-fade-up" style="animation-delay:.4s">Create your account and book your first task in under a minute.</p>
+        <div class="auth-btns anim anim-fade-up" style="animation-delay:.55s">
+          <button class="btn-yellow" style="margin-top:20px">Create Account</button>
+          <span class="or-text">or</span>
+          <button class="btn-yellow-outline">Login</button>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- Bottom bar -->
-  <div class="bottom-bar bb-dark" id="bottomBar">
-    <div class="dots" id="dots">
-      <div class="dot active"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav" id="bottomNav">
+    <div class="nav-row">
+      <div class="dots" id="dots"></div>
+      <button class="btn-continue" id="btnNext">Continue</button>
     </div>
-    <button class="btn-next" id="btnNext">
-      Next <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </button>
   </div>
 </div>
 
 <script>
-const track = document.getElementById('slidesTrack');
-const container = document.getElementById('slidesContainer');
-const dots = document.querySelectorAll('.dot');
+const track = document.getElementById('track');
+const viewport = document.getElementById('viewport');
+const bottomNav = document.getElementById('bottomNav');
 const btnNext = document.getElementById('btnNext');
-const bottomBar = document.getElementById('bottomBar');
-const totalSlides = 6;
-let current = 0;
+const dotsContainer = document.getElementById('dots');
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let cur = 0;
 
-// bg class per slide
-const barClass = ['bb-dark','bb-light','bb-warm','bb-light','bb-warm','bb-dark'];
+// Build dots
+for (let i = 0; i < total; i++) {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.addEventListener('click', () => goTo(i));
+  dotsContainer.appendChild(d);
+}
 
 function goTo(i) {
-  i = Math.max(0, Math.min(i, totalSlides - 1));
-  current = i;
-  track.style.transform = `translateX(-${current * 100}%)`;
-  dots.forEach((d, idx) => d.classList.toggle('active', idx === current));
-  bottomBar.className = 'bottom-bar ' + barClass[current];
+  i = Math.max(0, Math.min(i, total - 1));
+  cur = i;
+  track.style.transform = `translateX(-${cur * 100}%)`;
 
-  if (current === totalSlides - 1) {
-    btnNext.style.display = 'none';
-    document.getElementById('dots').style.margin = '0 auto';
+  // Activate slide for animations
+  slides.forEach((s, idx) => {
+    s.classList.toggle('active', idx === cur);
+  });
+
+  // Dots
+  dotsContainer.querySelectorAll('.dot').forEach((d, idx) => d.classList.toggle('active', idx === cur));
+
+  // Show/hide bottom nav on first and last slide
+  if (cur === 0 || cur === total - 1) {
+    bottomNav.style.display = 'none';
   } else {
-    btnNext.style.display = 'flex';
-    document.getElementById('dots').style.margin = '0';
-    const label = current === totalSlides - 2 ? 'Get Started' : 'Next';
-    btnNext.innerHTML = label + ' <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+    bottomNav.style.display = 'flex';
+    btnNext.textContent = cur === total - 2 ? 'Get Started' : 'Continue';
   }
 }
 
-btnNext.addEventListener('click', () => goTo(current + 1));
+btnNext.addEventListener('click', () => goTo(cur + 1));
 
 // Swipe
 let sx = 0, dx = 0, dragging = false;
-container.addEventListener('touchstart', e => {
+viewport.addEventListener('touchstart', e => {
   sx = e.touches[0].clientX;
   dragging = true;
   track.style.transition = 'none';
 }, { passive: true });
-container.addEventListener('touchmove', e => {
+viewport.addEventListener('touchmove', e => {
   if (!dragging) return;
   dx = e.touches[0].clientX - sx;
-  const dy = e.touches[0].clientY - (e.touches[0].clientY); // allow vertical scroll
-  track.style.transform = `translateX(${-(current * container.offsetWidth) + dx}px)`;
+  track.style.transform = `translateX(${-(cur * viewport.offsetWidth) + dx}px)`;
 }, { passive: true });
-container.addEventListener('touchend', () => {
+viewport.addEventListener('touchend', () => {
   dragging = false;
-  track.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-  if (Math.abs(dx) > 50) {
-    dx < 0 ? goTo(current + 1) : goTo(current - 1);
-  } else { goTo(current); }
+  track.style.transition = 'transform .55s cubic-bezier(.4,0,.15,1)';
+  if (Math.abs(dx) > 50) { dx < 0 ? goTo(cur + 1) : goTo(cur - 1); }
+  else goTo(cur);
   dx = 0;
 });
 
-dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
-
-function selectOption(el) {
+function pick(el) {
   document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
   el.classList.add('selected');
 }

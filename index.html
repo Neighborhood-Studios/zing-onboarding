@@ -221,7 +221,44 @@ html, body {
   font-size: 18px; font-weight: 700; color: var(--text);
 }
 
-/* ── SLIDE 5: QUESTION ── */
+/* ── SLIDE 5: SOCIAL PROOF ── */
+.s-proof {
+  background: var(--green);
+  text-align: center;
+  justify-content: flex-start;
+  padding-top: calc(56px + env(safe-area-inset-top, 0));
+}
+.s-proof .proof-title {
+  font-size: 26px; font-weight: 800; line-height: 1.25;
+  color: #fff; margin-bottom: 32px;
+}
+.proof-stats { display: flex; flex-direction: column; gap: 20px; margin-bottom: 32px; }
+.proof-stat {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.proof-stat-icon { font-size: 20px; }
+.proof-stat-content { text-align: center; }
+.proof-stat-num { font-size: 28px; font-weight: 800; color: #fff; }
+.proof-stat-stars { color: var(--yellow); font-size: 20px; letter-spacing: 2px; margin: 2px 0; }
+.proof-stat-label { font-size: 13px; font-weight: 700; color: rgba(255,255,255,.6); letter-spacing: .15em; text-transform: uppercase; }
+.proof-laurel {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+}
+.laurel { font-size: 24px; opacity: .5; }
+
+.proof-review {
+  background: rgba(255,255,255,.12);
+  border-radius: 16px; padding: 20px;
+  text-align: left; margin-top: 8px;
+  backdrop-filter: blur(10px);
+}
+.review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.review-stars { color: var(--yellow); font-size: 16px; letter-spacing: 2px; }
+.review-name { font-size: 13px; color: rgba(255,255,255,.5); font-weight: 600; }
+.review-text { font-size: 15px; color: rgba(255,255,255,.9); line-height: 1.6; margin-bottom: 8px; }
+.review-date { font-size: 12px; color: rgba(255,255,255,.4); }
+
+/* ── SLIDE 6: QUESTION ── */
 .s-question { padding-top: calc(48px + env(safe-area-inset-top, 0)); }
 .options-grid {
   display: grid; grid-template-columns: 1fr 1fr;
@@ -397,7 +434,51 @@ html, body {
         <p class="dedicated-caption anim anim-fade-up" style="animation-delay:.65s">You'll spot our cart around... 🧹</p>
       </div>
 
-      <!-- 5: QUESTION -->
+      <!-- 5: SOCIAL PROOF -->
+      <div class="slide s-proof" data-bg="var(--green)">
+        <h1 class="proof-title anim anim-fade-up" style="animation-delay:.1s">Residents love<br>what Zing does<br>for their home</h1>
+        <div class="proof-stats">
+          <div class="proof-stat anim anim-scale" style="animation-delay:.25s">
+            <div class="proof-laurel">
+              <span class="laurel">🌿</span>
+              <div class="proof-stat-content">
+                <div class="proof-stat-num">70%</div>
+                <div class="proof-stat-label">Say Zing is a top reason<br>they love their building</div>
+              </div>
+              <span class="laurel">🌿</span>
+            </div>
+          </div>
+          <div class="proof-stat anim anim-scale" style="animation-delay:.4s">
+            <div class="proof-laurel">
+              <span class="laurel">🌿</span>
+              <div class="proof-stat-content">
+                <div class="proof-stat-stars">★★★★★</div>
+                <div class="proof-stat-num">4.9 out of 5</div>
+                <div class="proof-stat-label">Resident Rating</div>
+              </div>
+              <span class="laurel">🌿</span>
+            </div>
+          </div>
+        </div>
+        <div class="proof-review anim anim-fade-up" style="animation-delay:.55s">
+          <div class="review-header">
+            <span class="review-stars">★★★★★</span>
+            <span class="review-name">Sarah M.</span>
+          </div>
+          <p class="review-text">I used to spend my entire Sunday cleaning. Now I order a bathroom refresh and floor mop while I'm at brunch. Absolute game changer!</p>
+          <span class="review-date">Jan 15, 2025</span>
+        </div>
+        <div class="proof-review anim anim-fade-up" style="animation-delay:.7s; margin-top:12px;">
+          <div class="review-header">
+            <span class="review-stars">★★★★★</span>
+            <span class="review-name">James K.</span>
+          </div>
+          <p class="review-text">Having a dedicated cleaner in our building feels like living in a hotel. The convenience is unreal.</p>
+          <span class="review-date">Feb 3, 2025</span>
+        </div>
+      </div>
+
+      <!-- 6: QUESTION -->
       <div class="slide s-question" data-bg="var(--bg)">
         <div class="badge anim anim-fade-up" style="animation-delay:.1s">One quick question</div>
         <h1 class="h1 anim anim-fade-up" style="animation-delay:.2s">How many bathrooms does your place have?</h1>
@@ -445,7 +526,7 @@ const bottomNav = document.getElementById('bottomNav');
 const btnNext = document.getElementById('btnNext');
 const dotsContainer = document.getElementById('dots');
 const slides = document.querySelectorAll('.slide');
-const total = slides.length;
+const total = slides.length; // now 7
 let cur = 0;
 
 // Build dots
@@ -468,6 +549,21 @@ function goTo(i) {
 
   // Dots
   dotsContainer.querySelectorAll('.dot').forEach((d, idx) => d.classList.toggle('active', idx === cur));
+
+  // Style bottom nav for green proof slide
+  const proofSlideIndex = 4; // 0-indexed, the social proof slide
+  if (cur === proofSlideIndex) {
+    bottomNav.style.background = 'var(--green)';
+    bottomNav.querySelectorAll('.dot:not(.active)').forEach(d => d.style.background = 'rgba(255,255,255,.2)');
+    bottomNav.querySelector('.dot.active').style.background = 'var(--yellow)';
+    btnNext.style.background = 'var(--yellow)';
+    btnNext.style.color = 'var(--text)';
+  } else {
+    bottomNav.style.background = 'var(--bg)';
+    bottomNav.querySelectorAll('.dot').forEach(d => d.style.background = '');
+    btnNext.style.background = '';
+    btnNext.style.color = '';
+  }
 
   // Hide swipe hint after first screen
   const hint = document.querySelector('.swipe-hint');

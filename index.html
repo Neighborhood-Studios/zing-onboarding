@@ -280,11 +280,7 @@ html, body {
             </div>
           </div>
         </div>
-        <div class="welcome-btns anim anim-fade-up" style="animation-delay:.85s">
-          <button class="btn-yellow">Login</button>
-          <span class="or-text">or</span>
-          <button class="btn-yellow-outline">Create Account</button>
-        </div>
+        <!-- Buttons moved to last screen -->
       </div>
 
       <!-- 2: SERVICES -->
@@ -455,11 +451,12 @@ function goTo(i) {
   // Dots
   dotsContainer.querySelectorAll('.dot').forEach((d, idx) => d.classList.toggle('active', idx === cur));
 
-  // Show/hide bottom nav on first and last slide
-  if (cur === 0 || cur === total - 1) {
-    bottomNav.style.display = 'none';
+  // Always show bottom nav, hide Continue on last slide
+  bottomNav.style.display = 'flex';
+  if (cur === total - 1) {
+    btnNext.style.display = 'none';
   } else {
-    bottomNav.style.display = 'flex';
+    btnNext.style.display = 'block';
     btnNext.textContent = cur === total - 2 ? 'Get Started' : 'Continue';
   }
 }

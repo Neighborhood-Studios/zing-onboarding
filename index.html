@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
+<meta name="theme-color" content="#111211">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Zing — Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #FAFAF7;
+  --bg-warm: #F2EFEA;
+  --dark: #111211;
+  --text: #1A1F1C;
+  --text-muted: #6B7370;
+  --gold: #C8956C;
+  --green: #2C5F4B;
+  --white: #FFFFFF;
+}
+
+html, body {
+  height: 100%; overflow: hidden;
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── ONBOARDING CONTAINER ── */
+.onboarding {
+  height: 100%; width: 100%;
+  display: flex; flex-direction: column;
+  padding: env(safe-area-inset-top, 0) 0 env(safe-area-inset-bottom, 0);
+}
+
+/* ── SLIDES ── */
+.slides-container {
+  flex: 1; position: relative; overflow: hidden;
+  touch-action: pan-y;
+}
+.slides-track {
+  display: flex; height: 100%;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.slide {
+  min-width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 48px 32px 32px;
+  position: relative;
+}
+
+/* ── SLIDE 1: WELCOME ── */
+.slide-welcome {
+  background: var(--dark);
+  justify-content: flex-start;
+  padding-top: 80px;
+  text-align: center;
+}
+.slide-welcome .logo {
+  width: 120px; height: auto; margin: 0 auto 12px;
+  filter: brightness(1);
+}
+.slide-welcome .tagline {
+  color: var(--gold);
+  font-size: 14px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  margin-bottom: 48px;
+}
+.welcome-features {
+  display: flex; flex-direction: column;
+  gap: 28px; text-align: left;
+  max-width: 340px; margin: 0 auto;
+}
+.welcome-feature {
+  display: flex; gap: 16px;
+}
+.feature-icon {
+  flex-shrink: 0; width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(200,149,108,.12);
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 2px;
+}
+.feature-icon svg {
+  width: 20px; height: 20px;
+  stroke: var(--gold); fill: none; stroke-width: 1.5;
+}
+.feature-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px; font-weight: 400;
+  color: var(--white); margin-bottom: 6px;
+}
+.feature-desc {
+  font-size: 14px; color: rgba(255,255,255,.5);
+  line-height: 1.6;
+}
+
+/* ── SLIDE 2: HOW IT WORKS ── */
+.slide-how {
+  background: var(--bg);
+}
+.slide-how .slide-label {
+  color: var(--gold); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.slide-how .slide-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px; font-weight: 400; line-height: 1.15;
+  color: var(--text); margin-bottom: 40px;
+}
+.steps { display: flex; flex-direction: column; gap: 32px; }
+.step { display: flex; gap: 16px; }
+.step-num {
+  flex-shrink: 0; width: 36px; height: 36px;
+  border-radius: 50%; background: var(--green);
+  color: var(--white); font-size: 14px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 2px;
+}
+.step-title {
+  font-size: 17px; font-weight: 600;
+  color: var(--text); margin-bottom: 4px;
+}
+.step-desc {
+  font-size: 14px; color: var(--text-muted); line-height: 1.6;
+}
+
+/* ── SLIDE 3: PROMISE ── */
+.slide-promise {
+  background: var(--bg-warm);
+  text-align: center;
+  justify-content: center;
+}
+.slide-promise .promise-icon {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: rgba(44,95,75,.1);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+}
+.slide-promise .promise-icon svg {
+  width: 32px; height: 32px;
+  stroke: var(--green); fill: none; stroke-width: 1.5;
+}
+.slide-promise .slide-label {
+  color: var(--gold); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.slide-promise .slide-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px; font-weight: 400; line-height: 1.2;
+  color: var(--text); margin-bottom: 20px;
+}
+.slide-promise .slide-desc {
+  font-size: 16px; color: var(--text-muted); line-height: 1.7;
+  max-width: 320px; margin: 0 auto 32px;
+}
+.promise-stats {
+  display: flex; justify-content: center; gap: 32px;
+}
+.stat-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 400; color: var(--green);
+}
+.stat-label {
+  font-size: 12px; color: var(--text-muted); margin-top: 4px;
+}
+
+/* ── SLIDE 4: GET STARTED ── */
+.slide-auth {
+  background: var(--dark);
+  text-align: center;
+  justify-content: center;
+}
+.slide-auth .logo {
+  width: 100px; height: auto; margin: 0 auto 32px;
+}
+.slide-auth .slide-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px; font-weight: 400; line-height: 1.2;
+  color: var(--white); margin-bottom: 12px;
+}
+.slide-auth .slide-desc {
+  font-size: 15px; color: rgba(255,255,255,.5); line-height: 1.6;
+  max-width: 300px; margin: 0 auto 40px;
+}
+.auth-buttons {
+  display: flex; flex-direction: column;
+  gap: 12px; max-width: 320px; margin: 0 auto; width: 100%;
+}
+.btn-login {
+  display: block; width: 100%; padding: 16px;
+  border-radius: 50px; font-family: inherit;
+  font-size: 16px; font-weight: 600;
+  text-align: center; cursor: pointer;
+  text-decoration: none; transition: all .25s;
+  border: none;
+}
+.btn-login-primary {
+  background: var(--white); color: var(--text);
+}
+.btn-login-primary:hover { background: var(--gold); color: var(--white); }
+.btn-login-secondary {
+  background: transparent; color: rgba(255,255,255,.6);
+  border: 1.5px solid rgba(255,255,255,.15);
+}
+.btn-login-secondary:hover { border-color: rgba(255,255,255,.4); color: var(--white); }
+.auth-divider {
+  display: flex; align-items: center; gap: 16px;
+  color: rgba(255,255,255,.25); font-size: 13px;
+  margin: 4px 0;
+}
+.auth-divider::before, .auth-divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: rgba(255,255,255,.1);
+}
+
+/* ── BOTTOM BAR ── */
+.bottom-bar {
+  padding: 20px 32px;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom, 0));
+  display: flex; align-items: center; justify-content: space-between;
+}
+.bottom-bar.dark { background: var(--dark); }
+.bottom-bar.light { background: var(--bg); }
+.bottom-bar.warm { background: var(--bg-warm); }
+.bottom-bar.auth-bar { background: var(--dark); justify-content: center; }
+
+/* Dots */
+.dots { display: flex; gap: 8px; }
+.dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,.2);
+  transition: all .35s;
+}
+.dot.active { width: 24px; border-radius: 4px; background: var(--gold); }
+.bottom-bar.light .dot { background: rgba(0,0,0,.12); }
+.bottom-bar.light .dot.active { background: var(--gold); }
+.bottom-bar.warm .dot { background: rgba(0,0,0,.12); }
+.bottom-bar.warm .dot.active { background: var(--gold); }
+
+/* Next button */
+.btn-next {
+  background: var(--gold); color: var(--white);
+  border: none; border-radius: 50px;
+  padding: 14px 28px;
+  font-family: inherit; font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: all .25s;
+  display: flex; align-items: center; gap: 8px;
+}
+.btn-next:hover { background: #b8855c; }
+.btn-next svg {
+  width: 16px; height: 16px;
+  stroke: currentColor; fill: none; stroke-width: 2;
+}
+
+/* Skip */
+.btn-skip {
+  background: none; border: none;
+  color: rgba(255,255,255,.4);
+  font-family: inherit; font-size: 14px;
+  cursor: pointer; padding: 8px 0;
+  transition: color .25s;
+}
+.btn-skip:hover { color: rgba(255,255,255,.7); }
+.bottom-bar.light .btn-skip { color: var(--text-muted); }
+.bottom-bar.light .btn-skip:hover { color: var(--text); }
+.bottom-bar.warm .btn-skip { color: var(--text-muted); }
+.bottom-bar.warm .btn-skip:hover { color: var(--text); }
+
+/* ── SWIPE ── */
+.slides-container { cursor: grab; }
+.slides-container:active { cursor: grabbing; }
+</style>
+</head>
+<body>
+
+<div class="onboarding">
+  <div class="slides-container" id="slidesContainer">
+    <div class="slides-track" id="slidesTrack">
+
+      <!-- SLIDE 1: Welcome -->
+      <div class="slide slide-welcome">
+        <img src="assets/zing-logo.svg" alt="Zing" class="logo">
+        <p class="tagline">À la carte chores, handled</p>
+        <div class="welcome-features">
+          <div class="welcome-feature">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <div>
+              <div class="feature-title">No task too small</div>
+              <div class="feature-desc">Choose from small cleaning tasks around your home. With no minimums, we can help for as little as $3.</div>
+            </div>
+          </div>
+          <div class="welcome-feature">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <div class="feature-title">Fast & On-Demand</div>
+              <div class="feature-desc">We're stationed in your building all day. A team member can be at your door in as little as 30 minutes.</div>
+            </div>
+          </div>
+          <div class="welcome-feature">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/></svg>
+            </div>
+            <div>
+              <div class="feature-title">Dedicated to your building</div>
+              <div class="feature-desc">Same cleaner, every time. We're just a message away.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: How It Works -->
+      <div class="slide slide-how">
+        <p class="slide-label">How It Works</p>
+        <h2 class="slide-title">Let us do the<br>hard work</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div>
+              <div class="step-title">Pick your tasks</div>
+              <div class="step-desc">Choose what you need — just tap, add any details, and add to your cart.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div>
+              <div class="step-title">Schedule & Entry</div>
+              <div class="step-desc">Select a date and let us know how we should access your place.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div>
+              <div class="step-title">Pay & Confirm</div>
+              <div class="step-desc">Choose paying by card or Apple Pay and you're done! We'll text to confirm all the details.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: Promise -->
+      <div class="slide slide-promise">
+        <div class="promise-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+        </div>
+        <p class="slide-label">The Zing Promise</p>
+        <h2 class="slide-title">Trusted, vetted,<br>and in your building</h2>
+        <p class="slide-desc">Every Zing cleaner is background-checked, trained, and part of your building's community. Real accountability, real results.</p>
+        <div class="promise-stats">
+          <div>
+            <div class="stat-value">98%</div>
+            <div class="stat-label">Satisfaction</div>
+          </div>
+          <div>
+            <div class="stat-value">30min</div>
+            <div class="stat-label">Avg. task time</div>
+          </div>
+          <div>
+            <div class="stat-value">4.9★</div>
+            <div class="stat-label">Rating</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: Auth -->
+      <div class="slide slide-auth">
+        <img src="assets/zing-logo.svg" alt="Zing" class="logo">
+        <h2 class="slide-title">Ready for a<br>cleaner home?</h2>
+        <p class="slide-desc">Create your account and book your first task in under a minute.</p>
+        <div class="auth-buttons">
+          <button class="btn-login btn-login-primary">Create Account</button>
+          <div class="auth-divider">or</div>
+          <button class="btn-login btn-login-secondary">Login</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="bottom-bar dark" id="bottomBar">
+    <div class="dots" id="dots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    <button class="btn-next" id="btnNext">
+      Next
+      <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+const track = document.getElementById('slidesTrack');
+const container = document.getElementById('slidesContainer');
+const dots = document.querySelectorAll('.dot');
+const btnNext = document.getElementById('btnNext');
+const bottomBar = document.getElementById('bottomBar');
+const totalSlides = 4;
+let current = 0;
+
+const barStyles = ['dark', 'light', 'warm', 'auth-bar dark'];
+
+function goTo(index) {
+  if (index < 0) index = 0;
+  if (index >= totalSlides) index = totalSlides - 1;
+  current = index;
+  track.style.transform = `translateX(-${current * 100}%)`;
+
+  // Update dots
+  dots.forEach((d, i) => d.classList.toggle('active', i === current));
+
+  // Update bottom bar style
+  bottomBar.className = 'bottom-bar ' + barStyles[current];
+
+  // Hide next button on last slide
+  if (current === totalSlides - 1) {
+    btnNext.style.display = 'none';
+    document.getElementById('dots').style.margin = '0 auto';
+  } else {
+    btnNext.style.display = 'flex';
+    document.getElementById('dots').style.margin = '0';
+    btnNext.textContent = '';
+    btnNext.innerHTML = current === totalSlides - 2
+      ? 'Get Started <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'
+      : 'Next <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+  }
+}
+
+btnNext.addEventListener('click', () => goTo(current + 1));
+
+// Swipe support
+let startX = 0, startY = 0, isDragging = false, diffX = 0;
+
+container.addEventListener('touchstart', (e) => {
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+  isDragging = true;
+  track.style.transition = 'none';
+}, { passive: true });
+
+container.addEventListener('touchmove', (e) => {
+  if (!isDragging) return;
+  diffX = e.touches[0].clientX - startX;
+  const diffY = e.touches[0].clientY - startY;
+  if (Math.abs(diffX) < Math.abs(diffY)) return;
+  const offset = -(current * container.offsetWidth) + diffX;
+  track.style.transform = `translateX(${offset}px)`;
+}, { passive: true });
+
+container.addEventListener('touchend', () => {
+  isDragging = false;
+  track.style.transition = 'transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)';
+  if (Math.abs(diffX) > 60) {
+    if (diffX < 0) goTo(current + 1);
+    else goTo(current - 1);
+  } else {
+    goTo(current);
+  }
+  diffX = 0;
+});
+
+// Dot clicks
+dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+// Init
+goTo(0);
+</script>
+
+</body>
+</html>
